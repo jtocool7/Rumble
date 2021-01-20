@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rumble</title>
+  <style>
+  #button{
+    width:300px;
+    height:300px;
+    background:gray;
+    position:absolute;
+    border-radius:150px;
+    top:30%;
+    
+    left:30%;
+  }
+  
+  #w{
+    text-align:center;
+    color:white;
+    font-size:25px;
+    font-family:calibri;
+    position:absolute;
+    top:35%;
+    left:30%;
+  }
+  </style>
+</head>
+<body>
+  
+    <div id=button onclick="vibrate(1000)">
+    <p id="w">
+    
+    </p>
+    </div>
+  <script>
+  button.addEventListener("touchstart", startTouch, false);
+button.addEventListener("touchmove", moveTouch, false);
+ 
+// Swipe Up / Down / Left / Right
+var initialX = null;
+var initialY = null;
+ 
+function startTouch(e) {
+  initialX = e.touches[0].clientX;
+  initialY = e.touches[0].clientY;
+};
+ 
+function moveTouch(e) {
+  if (initialX === null) {
+    return;
+  }
+ 
+  if (initialY === null) {
+    return;
+  }
+ 
+  var currentX = e.touches[0].clientX;
+  var currentY = e.touches[0].clientY;
+ 
+  var diffX = initialX - currentX;
+  var diffY = initialY - currentY;
+ 
+  if (Math.abs(diffX) > Math.abs(diffY)) {
+    // sliding horizontally
+    if (diffX > 0) {
+      // swiped left
+      console.log("swiped left");
+      w.textContent = "Swiped Left"
+    } else {
+      // swiped right
+      console.log("swiped right");
+      w.textContent = "Swiped Right"
+    }  
+  } else {
+    // sliding vertically
+    if (diffY > 0) {
+      // swiped up
+      console.log("swiped up");
+      w.textContent = "Swiped Up"
+    } else {
+      // swiped down
+      console.log("swiped down");
+      w.textContent = "Swiped Down"
+    }  
+  }
+ 
+  initialX = null;
+  initialY = null;
+   
+  e.preventDefault();
+};
+
+button.addEventListener('click', function(){
+w.textContent = "Touched"
+
+
+})
+
+function vibrate(ms){
+navigator.vibrate(ms)
+}
+  </script>
+</body>
+</html>
